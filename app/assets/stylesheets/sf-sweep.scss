@@ -1,0 +1,137 @@
+//////////////////////////////////////////////////////////////////////////
+// street-sweep route paths
+//////////////////////////////////////////////////////////////////////////
+
+$monday: #e9325e;
+$tuesday: #9a12b3;
+$wednesday: #2ecc71;
+$thursday: #d35400;
+$friday: #1c72c4;
+$saturday: #af1409;
+$sunday: #f7ca18;
+
+path.route.Mo { stroke: $monday; }
+path.route.Tu { stroke: $tuesday; }
+path.route.We { stroke: $wednesday; }
+path.route.Th { stroke: $thursday; }
+path.route.Fr { stroke: $friday; }
+path.route.Sa { stroke: $saturday; }
+path.route.Su { stroke: $sunday; }
+
+.route { visibility: hidden; }
+g.routes.Mo  { .route.Mo  { visibility: visible; } }
+g.routes.Tu  { .route.Tu  { visibility: visible; } }
+g.routes.We  { .route.We  { visibility: visible; } }
+g.routes.Th  { .route.Th  { visibility: visible; } }
+g.routes.Fr  { .route.Fr  { visibility: visible; } }
+g.routes.Sa  { .route.Sa  { visibility: visible; } }
+g.routes.Su  { .route.Su  { visibility: visible; } }
+g.routes.All { .route     { visibility: visible; } }
+
+//////////////////////////////////////////////////////////////////////////
+// general, containers
+//////////////////////////////////////////////////////////////////////////
+
+html {
+  background: none;
+}
+.frame1 {
+  width: 980px;
+  height: auto;
+  margin: 0 auto;
+  border: none;
+  position: relative;
+}
+.loading {
+  text-align: center;
+  font-size: 18px;
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.map {
+  background: #15181B;
+  min-height: 800px;
+  position: relative;
+}
+.overlay {
+  fill: transparent;
+  height: 900px;
+  width: 800px;
+}
+
+svg.sidebar {
+  position: absolute;
+  width: 120px;
+  height: 900px;
+}
+
+path {
+  stroke-width: .4px;
+  stroke-linejoin: round;
+  stroke-linecap: round;
+}
+
+//////////////////////////////////////////////////////////////////////////
+// vector tiles
+//////////////////////////////////////////////////////////////////////////
+
+.land-usages path {
+  fill: #a9b1b9;
+  opacity: .1;
+}
+
+
+.buildings path {
+  stroke: #4f6076;
+  opacity: .3;
+}
+
+.highroad .minor_road,
+.highroad .major_road {
+  stroke: darken(#a8b1b9, 10%);
+  opacity: 1;
+}
+.highroad .highway {
+  stroke: darken(#a8b1b9, 15%);
+  opacity: 1;
+}
+//////////////////////////////////////////////////////////////////////////
+// sidenav day list
+//////////////////////////////////////////////////////////////////////////
+$bg-color: #15181B;
+$circ-fill-selected: lighten(#15181B, 25%);
+$circ-fill: lighten(#15181B, 15%);
+
+.day {
+  cursor: pointer;
+}
+circle.day {
+  pointer-events: all;
+  r: 25px;
+  stroke-width: 3px;
+  fill: $circ-fill;
+}
+
+text.day {
+  pointer-events: none;
+  text-anchor: middle;
+  font-size: 1em;
+  font-family: 'code';
+  font-variant: small-caps;
+  fill: #dddddd;
+}
+
+.days.all {
+  circle.day.All {
+    stroke: #dddddd;
+    fill: $circ-fill-selected;
+  }
+}
+
+.days.Mo { circle.day.Mo { stroke: $monday; } }
+.days.Tu { circle.day.Tu { stroke: $tuesday; } }
+.days.We { circle.day.We { stroke: $wednesday; } }
+.days.Th { circle.day.Th { stroke: $thursday; } }
+.days.Fr { circle.day.Fr { stroke: $friday; } }
+.days.Sa { circle.day.Sa { stroke: $saturday; } }
+.days.Su { circle.day.Su { stroke: $sunday; } }
