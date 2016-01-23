@@ -8,6 +8,8 @@ class ApiController < ActionController::API
       token: Rails.application.secrets.yelp_token,
       token_secret: Rails.application.secrets.yelp_token_secret})
 
-    p client.search("San Francisco")
+    @response = client.search("San Francisco")
+
+    render json: @response
   end
 end
