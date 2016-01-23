@@ -12,4 +12,8 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require d3-map/d3.v3.min
+//= require d3-map/topojson
+//= require d3-map/lodash
+//= require d3-map/queue.v1.min
 //= require_tree .
