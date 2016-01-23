@@ -34,3 +34,6 @@ bower.json
 # Ignore pow environment settings
 .powenv
 vendor/assets/javascripts/.DS_Store
+
+# Database
+config/database.yml
