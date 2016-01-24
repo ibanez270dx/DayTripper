@@ -1,28 +1,33 @@
 require 'csv'
 
 categories = {
-  film_locations: Category.create(name: 'Film Locations').id
+  businesses: Category.create(name: 'Business').id
+  restaurants: Category.create(name: 'Restaurants').id
 }
 
 # Directory containing our acvtivity data
-data = "#{Rails.root}/db/activity_data/"
+data = "#{Rails.root}/db/activity_data"
 
-# Film Locations
-file = "#{data}/Film_Locations_in_San_Francisco.csv"
+# Registered Businesses
+file = "#{data}/Registered_Business_Map.csv"
+start_businesses = Time.now
 CSV.parse(File.read(file), headers: true).each do |row|
-  Activity.create(
-    category_id: categories[:film_locations],
-    name: "#{row['Title']} (#{row['Release Year']})",
-    description: "
-      Location: #{row['Locations']}\n
-      Fun Facts: #{row['Fun Facts']}\n
-      Production Company: #{row['Production Company']}\n
-      Distributor: #{row['Distributor']}\n
-      Director: #{row['Director']}\n
-      Writer: #{row['Writer']}\n
-      Actors: #{row['Actor 1']} #{row['Actor 2']} #{row['Actor 3']}
-    "
+  unless \
+    row['City'].try(:downcase) != "san francisco" ||
+    row['Class Code'] != "07" ||
+    row['Business_Location'].blank? ||
+    row['DBA Name'] =~ /apartment/i
+
+    address = row['Business_Location'].split("\n")
+    location = address.pop
+    address = address.collect(&:titleize).join(", ")
+    
+    Activity.create({
+      name: row['DBA Name'].titleize,
+      location: address.pop,
+      address: address.collect(&:titleize).join(", "),
+      category_id: categories[:businesses]
+    })
+  end
 end
-
-
-# <CSV::Row "Title":"180" "Release Year":"2011" "Locations":"City Hall" "Fun Facts":nil "Production Company":"SPI Cinemas" "Distributor":nil "Director":"Jayendra" "Writer":"Umarji Anuradha, Jayendra, Aarthi Sriram, & Suba " "Actor 1":"Siddarth" "Actor 2":"Nithya Menon" "Actor 3":"Priya Anand" "Smile Again, Jenny Lee":nil>
+puts "Imported Registered Businesses in #{Time.now.to_i-start_businesses.to_i} seconds"
