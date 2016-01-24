@@ -1,8 +1,12 @@
 <section id="itinerary">
+  <%= link_to 'Generate Itinerary', "https://www.google.com/maps/dir/#{@url_path}", class: 'generate', target: '_blank' %>
+
+  <h2>Locations in <%= @neighborhood.name %></h2>
   <% @activities.each do |activity| %>
-    <strong><%= activity.name %></strong><br />
-    <%= activity.address %><br />
-    <%= activity.location %><br />
-    <hr />
+    <div class="activity">
+      <strong><%= activity.name %></strong><br />
+      <%= activity.address %><br />
+      <%= activity.location %><br />
+    </div>
   <% end %>
 </section>

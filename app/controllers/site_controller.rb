@@ -7,7 +7,11 @@ class SiteController < ApplicationController
   end
 
   def itinerary
-    neighborhood = Neighborhood.find(params[:neighborhood_id])
-    @activities = neighborhood.activities
+    @neighborhood = Neighborhood.find(params[:neighborhood_id])
+    @activities = @neighborhood.activities
+
+    route = @activities.sample(4)
+    route = route.collect { |x| x.location.strip.gsub(/\(|\)|\s/,'') }
+    @url_path = route.join('/')+"/#{route.first}"
   end
 end
