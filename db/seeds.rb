@@ -1,33 +1,19 @@
 require 'csv'
 
 categories = {
-  businesses: Category.create(name: 'Business').id
-  restaurants: Category.create(name: 'Restaurants').id
+  film_locations: Category.create(name: 'Film Locations').id
+  park_and_open_space: Category.create(name: 'Park and Open Space').id
 }
 
-# Directory containing our acvtivity data
 data = "#{Rails.root}/db/activity_data"
-
-# Registered Businesses
-file = "#{data}/Registered_Business_Map.csv"
-start_businesses = Time.now
-CSV.parse(File.read(file), headers: true).each do |row|
-  unless \
-    row['City'].try(:downcase) != "san francisco" ||
-    row['Class Code'] != "07" ||
-    row['Business_Location'].blank? ||
-    row['DBA Name'] =~ /apartment/i
-
-    address = row['Business_Location'].split("\n")
-    location = address.pop
-    address = address.collect(&:titleize).join(", ")
-    
-    Activity.create({
-      name: row['DBA Name'].titleize,
-      location: address.pop,
-      address: address.collect(&:titleize).join(", "),
-      category_id: categories[:businesses]
-    })
-  end
+file = "#{data}/Park_and_Open_Space_Map.csv"
+csv = CSV.parse(File.read(file), headers: true).each do |row|
+  address = row['Location 1'].split("\n")
+  Activity.create(
+    category_id: categories[:park_and_open_space],
+    name: "#{row['ParkName']}",
+    address: "#{address[0]}",
+    location: "#{address[-1]}",
+    description: "#{row['ParkType']}"
+    )
 end
-puts "Imported Registered Businesses in #{Time.now.to_i-start_businesses.to_i} seconds"
