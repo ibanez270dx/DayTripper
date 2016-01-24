@@ -1,1 +1,26 @@
 @import 'sf-sweep';
+
+
+h1 {
+  font-family: 'Helvetica';
+  font-size: 60px;
+  text-align: center;
+}
+
+section {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+
+  a {
+    padding: 1em;
+    text-decoration: none;
+    color: #000;
+    font-family: 'Helvetica';
+    
+    &:hover {
+      background: #4B84C3;
+    }
+  }
+}

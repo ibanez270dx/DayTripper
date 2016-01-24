@@ -11,12 +11,14 @@ namespace :activities do
           response = Net::HTTP.get(URI(url))
           if response
             results = JSON.parse(response)
-            results["results"][0]["address_components"].each do |address_component|
-              if address_component["types"].include?("neighborhood")
-                neighborhood = Neighborhood.find_by_name(address_component["long_name"])
-                if neighborhood
-                  activity.update_attributes neighborhood_id: neighborhood.id
-                  puts "updated activity #{activity.id} with neighborhood #{neighborhood.id}"
+            if results["results"] && results["results"][0] && results["results"][0]["address_components"]
+              results["results"][0]["address_components"].each do |address_component|
+                if address_component["types"].include?("neighborhood")
+                  neighborhood = Neighborhood.find_by_name(address_component["long_name"])
+                  if neighborhood
+                    activity.update_attributes neighborhood_id: neighborhood.id
+                    puts "updated activity #{activity.id} with neighborhood #{neighborhood.id}"
+                  end
                 end
               end
             end

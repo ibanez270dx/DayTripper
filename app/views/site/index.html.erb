@@ -1,3 +1,7 @@
-<div class="frame1">
-  <div class="map"></div>
-</div>
+<h1>DayTripper</h1>
+
+<section>
+  <% Neighborhood.all.each do |neighborhood| %>
+    <%= link_to neighborhood.name, '#' %>
+  <% end %>
+</section>
