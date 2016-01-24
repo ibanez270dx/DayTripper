@@ -3,7 +3,8 @@ require 'csv'
 categories = {
   film_locations: Category.create(name: 'Film Locations').id,
   park_and_open_space: Category.create(name: 'Park and Open Space').id,
-  bike_share: Category.create(name: 'Bike Share Locations').id
+  bike_share: Category.create(name: 'Bike Share Locations').id,
+  art_collection: Category.create(name: 'Art Collection').id
 }
 
 data = "#{Rails.root}/db/activity_data"
@@ -27,5 +28,18 @@ csv = CSV.parse(File.read(file), headers: true).each do |row|
     name: "#{row['Site_ID']}",
     location: "#{row['long']} #{row['Lat']}",
     description: "#{row['Location_N']}"
+  )
+end
+
+data = "#{Rails.root}/db/activity_data"
+file = "#{data}/SF_Civic_Art_Collection.csv"
+csv = CSV.parse(File.read(file), headers: true).each do |row|
+  address = (JSON.parse(row['geometry']))['coordinates']
+  Activity.create(
+    category_id: categories[:art_collection],
+    name: "#{row['title']}",
+    address: "#{row['location_description']}"
+    location: "#{address}",
+    description: "#{row['source']}"
   )
 end
