@@ -1,7 +1,7 @@
 <h1>DayTripper</h1>
 
-<section>
-  <% Neighborhood.all.each do |neighborhood| %>
-    <%= link_to neighborhood.name, itinerary_path(neighborhood_id) %>
+<section id="index">
+  <% @neighborhoods.each do |neighborhood| %>
+    <%= link_to neighborhood.name, itinerary_path(neighborhood.id) %>
   <% end %>
 </section>
