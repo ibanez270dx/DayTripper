@@ -21,6 +21,8 @@ namespace :activities do
                   end
                 end
               end
+            else
+              puts "ERROR activity #{activity.id} --> #{results}"
             end
           end
         end
