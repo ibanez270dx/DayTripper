@@ -3,10 +3,27 @@
 body {
   background: #fafafa;
   font-family: 'Helvetica';
+  background-image:asset_url('bg.jpg');
+  background-size: cover;
+  background-attachment: fixed;
+  background-position: center;
+}
+
+a.generate {
+  display: block;
+  font-size: 48px;
+  text-align: center;
+  margin: 1em;
+  color: #4B84C3;
+  text-decoration: none;
+  transition: color 0.3s;
+  &:hover {
+    color: blue;
+  }
 }
 
 .wrapper {
-  background: #fff;
+  background: rgba(255,255,255,0.8);
   border:1px solid #eee;
   max-width: 768px;
   margin-left: auto;
@@ -35,5 +52,14 @@ section#index {
     &:hover {
       background: #4B84C3;
     }
+  }
+}
+
+section#itinerary {
+  .activity:not(:last-child) {
+    margin-bottom: 25px;
+  }
+  h2 {
+    text-align: center;
   }
 }
