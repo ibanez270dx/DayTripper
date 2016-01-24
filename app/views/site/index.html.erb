@@ -2,6 +2,6 @@
 
 <section>
   <% Neighborhood.all.each do |neighborhood| %>
-    <%= link_to neighborhood.name, '#' %>
+    <%= link_to neighborhood.name, itinerary_path(neighborhood_id) %>
   <% end %>
 </section>

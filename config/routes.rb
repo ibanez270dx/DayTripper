@@ -5,8 +5,6 @@ Rails.application.routes.draw do
   # You can have the root of your site routed with "root"
   # root 'welcome#index'
 
-  get '/generate' => 'api#generate'
-
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
 
@@ -56,4 +54,6 @@ Rails.application.routes.draw do
   #     resources :products
   #   end
   root 'site#index'
+
+  get 'itinerary/:neighborhood_id' => 'site#itinerary', as: :itinerary
 end
