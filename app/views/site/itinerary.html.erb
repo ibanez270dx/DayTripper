@@ -1,0 +1,8 @@
+<section id="itinerary">
+  <% @activities.each do |activity| %>
+    <strong><%= activity.name %></strong><br />
+    <%= activity.address %><br />
+    <%= activity.location %><br />
+    <hr />
+  <% end %>
+</section>
